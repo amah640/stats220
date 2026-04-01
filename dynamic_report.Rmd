@@ -19,13 +19,9 @@ h2 {
 }
 ```
 
-## What's going on with this data?
-
 ## Inside Your Screen: Phone Usage Behaviour Analysis 
 
 This report analyses observational data on phone usage behaviour. Each entry represents a single phone usgae session, including duration, intention and purpose. The aim is to identify patterns in how and why people use phones.  
-
-You need to change the contents of this Rmd! Replace the R code and markdown give below in this template document.
 
 ```{r}
 library(tidyverse)
