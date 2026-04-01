@@ -10,12 +10,12 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 
 ```{css}
 body { 
- font-family: Arial;
+ font-family: Arial; 
+ background-color:#121212;
+ color:#ECEFF4
  }
- 
 h2 {
-  color: #2E86C1;
-  background: 
+  color:#ECEFF4;
 }
 ```
 
@@ -72,7 +72,10 @@ The mean of phone use session is `r mean_duration` mins.
 
 `r intention[1]` and `r intention[2]`  was one of the intentions of the top 3 phone uses.
 
+# ===== BAR CHARTS =====
+
 ```{r}
+
 #bar chart 1: count of phone use by purpose 
 ggplot(latest_data, aes(x = purpose)) + 
   geom_bar(fill= "purple") + labs(title = "Phone Use Purposes", x = "purpose", y= "Count") + theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) 
