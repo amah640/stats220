@@ -1,0 +1,78 @@
+---
+title: My dynamic report 
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+body { 
+ font-family: Arial;
+ }
+ 
+h2 {
+  color: #2E86C1;
+  background: 
+}
+```
+
+## What's going on with this data?
+
+## Inside Your Screen: Phone Usage Behaviour Analysis 
+
+This report analyses observational data on phone usage behaviour. Each entry represents a single phone usgae session, including duration, intention and purpose. The aim is to identify patterns in how and why people use phones.  
+
+You need to change the contents of this Rmd! Replace the R code and markdown give below in this template document.
+
+```{r}
+library(tidyverse)
+
+# Load dataset from published Google Sheets CSV
+read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRHjK6U69tunQ4OQMxnbVQ6IXGCVxU3PWlw2RzgzQYsOWOHr-tUauL5lDRaGs-hZNuZGhVMlasP3_UT/pub?gid=84486311&single=true&output=csv")
+logged_data <-read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRHjK6U69tunQ4OQMxnbVQ6IXGCVxU3PWlw2RzgzQYsOWOHr-tUauL5lDRaGs-hZNuZGhVMlasP3_UT/pub?gid=84486311&single=true&output=csv")%>%
+  rename(gender = 3, 
+         phone = 4, 
+         phone_use_session = 5, 
+         purpose = 6, 
+         intention = 7)
+print(logged_data)
+```
+# ===== DATA EXPLORATION =====
+
+```{r}
+# Top 3 longest phone use sessions 
+most_phone_use <- logged_data%>%
+  arrange(desc(phone_use_session))%>%
+  print()
+
+# as again 
+most_phone_use <- most_phone_use%>% 
+  slice(c(1,2,3))%>%
+print()
+intention <- unique(most_phone_use$intention)
+
+# purpose of top 3 phone uses 
+paste(intention, "was one of the intentions of the top 3 phone uses")
+ 
+# ===== FINAL CODE FOR REPORT =====
+
+# mean of phone use duration 
+mean_duration <- mean(logged_data$phone_use_session)
+paste("the mean of phone use session is",mean_duration, "mins")
+
+# average duration by purpose 
+avg_by_purpose <- logged_data %>% 
+  group_by(purpose) %>% 
+  summarise(avg_duration = mean(phone_use_session, na.rm = TRUE))
+
+#bar chart 1: count of phone use by purpose 
+ggplot(logged_data, aes(x = purpose)) + 
+  geom_bar()
+
+# bar chart 2: Count of phone usage by intention 
+ggplot(logged_data, aes(x = intention)) + 
+  geom_bar()
+```
